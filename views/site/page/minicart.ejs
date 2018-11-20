@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pet Store - Cửa hàng thú cưng trực tuyến</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <base href="http://localhost:8000/">
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--//for-mobile-apps -->
+    <!--Custom Theme files -->
+    <link href="customer/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="customer/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//Custom Theme files -->
+    <!--js-->
+    <script src="customer/js/jquery-1.11.1.min.js"></script>
+    <script src="customer/js/modernizr.custom.js"></script>
+    <!--//js-->
+    <!--cart-->
+    <!-- <script src="customer/js/simpleCart.min.js"></script> -->
+    <!--cart-->
+    <!--web-fonts-->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+        rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Pompiere' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fascinate' rel='stylesheet' type='text/css'>
+    <!--web-fonts-->
+    <!--animation-effect-->
+    <link href="customer/css/animate.min.css" rel="stylesheet">
+    <script src="customer/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//animation-effect-->
+    <!--start-smooth-scrolling-->
+    <script type="text/javascript" src="customer/js/move-top.js"></script>
+    <script type="text/javascript" src="customer/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!--//end-smooth-scrolling-->
+</head>
+
+<body>
+    <!--header-->
+    <% include ../layout/header.ejs %>
+    <!--breadcrumbs-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a href="trang-chu"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Giỏ hàng</li>
+            </ol>
+        </div>
+    </div>
+    <!--//breadcrumbs-->
+    <!--cart-items-->
+    <div class="cart-items">
+        <div class="container">
+            <h3 class="wow fadeInUp animated" data-wow-delay=".5s">Giỏ hàng của tôi</h3>
+            <% var total = 0; if(data){ data.forEach(function(item){ total += item.tien %>
+            <div class="cart-header wow fadeInUp animated" data-wow-delay=".5s">
+                <div class="alert-close delCart" id="<%= item.item._id%>"> </div>
+                <div class="cart-sec simpleCart_shelfItem">
+                    <div class="cart-item cyc">
+                        <a href="/chi-tiet/<%= item.item.name%>.<%= item.item._id%>.<%= item.item.cateId%>"><img
+                                src="upload/<%= item.item.img%>" class="img-responsive" alt=""></a>
+                    </div>
+                    <div class="cart-item-info">
+                        <h4><a href="/chi-tiet/<%= item.item.name%>.<%= item.item._id%>.<%= item.item.cateId%>">
+                                <%= item.item.name%> </a></h4>
+                        <ul class="qty">
+                            <li>
+                                <h5>Số lượng :</h5>
+                            </li>
+                            <li>
+                                    <input id="sl<%= item.item._id%>" style="width:50px; border: none" type="number" size="1"
+                                        value="<%= item.soluong%>" name="quantity[]" class="span1">
+                            </li>
+                        </ul>
+                        <div class="delivery">
+                            <% if(item.item.promotion > 0){ %>
+                            <h5>Giá tiền :
+                                <%=item.item.price%> VNĐ
+                            </h5>
+                            <br>
+                            <h5>Khuyến mãi :
+                                <%=item.item.price * ( item.item.promotion / 100 )%> VNĐ
+                            </h5>
+                            <% } else { %>
+                            <h5>Giá tiền :
+                                <%=item.item.price%> VNĐ
+                            </h5>
+                            <% } %>
+                            <span>Thành tiền :
+                                <%= item.tien%> VNĐ</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div type="button" style="float: right;" class="btn btn-success updateCart" id="<%= item.item._id%>">Cập nhật</div>
+                </div>
+            </div>
+            <hr>
+            <%})}%>
+            <div class="cart-header wow fadeInUp animated" data-wow-delay=".5s">
+                <div class="cart-sec simpleCart_shelfItem">
+                    <div class="delivery" style="float: right;">
+                        <h3>
+                            <span style="color: tomato">Tổng tiền tiền :
+                                <%= total%> VNĐ</span>
+                        </h3>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="bd-example" style="float: right;">
+                <a href="san-pham" class="btn btn-default btn-sm">Tiếp tục mua hàng</a>
+                <a href="dat-hang" class="btn btn-warning btn-sm">Đặt hàng</a>
+            </div>
+
+        </div>
+    </div>
+    <!--//cart-items-->
+    <!--footer-->
+    <% include ../layout/footer.ejs %>
+    <!--//footer-->
+    <!--search jQuery-->
+    <script src="customer/js/main.js"></script>
+    <!--//search jQuery-->
+    <!--smooth-scrolling-of-move-up-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    
+    <script src="customer/js/bootstrap.js"></script>
+
+    <script>
+    
+        $(document).ready(function () {
+            
+            $('.updateCart').click(function () {
+                var id = $(this).attr('id');
+                var soluong = document.getElementById('sl' + id).value;
+                if (soluong > 0) {
+                    $.post(
+                        './updateCart', {
+                            id: id,
+                            soluong: soluong
+                        },
+                        function (data) {
+                            if (data.st == 1) 
+                            {
+                                location.href = "gio-hang";
+                            }
+                        }
+                    ), 'json';
+                }
+            });
+    
+            $('.delCart').click(function () {
+                var id = $(this).attr('id');
+                $.post(
+                    './delCart', {
+                        id: id
+                    },
+                    function (data) {
+                        if (data.st == 1) 
+                        {
+                            location.href = "gio-hang";
+                        }
+                    }
+                ), 'json';
+    
+            });
+        });
+    </script>
+</body>
+
+</html>

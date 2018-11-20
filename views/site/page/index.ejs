@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Pet Store - Cửa hàng thú cưng trực tuyến</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <base href="http://localhost:8000/">
+  <script type="application/x-javascript">
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <!--//for-mobile-apps -->
+  <!--Custom Theme files -->
+  <link href="customer/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="customer/css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <link rel="stylesheet" href="customer/css/flexslider.css" type="text/css" media="screen" />
+  <!--//Custom Theme files -->
+  <!--js-->
+  <script src="customer/js/jquery-1.11.1.min.js"></script>
+  <script src="customer/js/modernizr.custom.js"></script>
+  <!--//js-->
+  <!--cart-->
+  <!-- <script src="customer/js/simpleCart.min.js"></script> -->
+  <!--cart-->
+  <!--web-fonts-->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic'
+    rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+    rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Pompiere' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Fascinate' rel='stylesheet' type='text/css'>
+  <!--web-fonts-->
+  <!--animation-effect-->
+  <link href="customer/css/animate.min.css" rel="stylesheet">
+  <script src="customer/js/wow.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
+  <!--//animation-effect-->
+  <!--start-smooth-scrolling-->
+  <script type="text/javascript" src="customer/js/move-top.js"></script>
+  <script type="text/javascript" src="customer/js/easing.js"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+      $(".scroll").click(function (event) {
+        event.preventDefault();
+        $('html,body').animate({
+          scrollTop: $(this.hash).offset().top
+        }, 1000);
+      });
+    });
+  </script>
+
+
+</head>
+
+<body>
+
+
+<% include ../layout/header.ejs %>
+<!-- Header End -->
+
+<div class="banner">
+  <div class="container">
+    <div class="banner-text">
+      <div class="col-sm-7 banner-right wow fadeInRight animated" data-wow-delay=".5s">
+        <section class="slider grid">
+        </section>
+        <!--FlexSlider-->
+        <script defer src="customer/js/jquery.flexslider.js"></script>
+        <script type="text/javascript">
+          $(window).load(function () {
+            $('.flexslider').flexslider({
+              animation: "pagination",
+              start: function (slider) {
+                $('body').removeClass('loading');
+              }
+            });
+          });
+        </script>
+        <!--End-slider-script-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--//banner-->
+<% if(success_msg != ''){ %>
+          <div class="alert alert-success">
+            <%= success_msg%>
+          </div>
+        <% } %>
+<%  cate.forEach(function(ca){ var id = 0; %>
+<div class="new">
+  <div class="container">
+    <div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+      <h3 class="title">
+        <%= ca.name%><span></span></h3>
+      <h5 class="title"><p>************************************************************************** </p></h5>
+    </div>
+    <div class="new-info">
+      <%  product.forEach(function(pro){ if(id < 4 ) { if(pro.cateId == ca._id){ id ++ ; %>
+      <div class="col-md-3 new-grid simpleCart_shelfItem wow flipInY animated" style="margin-right: 1.25em" data-wow-delay=".5s">
+                    <div class="new-top"  style="height:300px;">
+                        <a href="/chi-tiet/<%= pro.name%>.<%= pro._id%>.<%= pro.cateId%>"><img src="upload/<%= pro.img %>" class="img-responsive" alt="" /></a>
+                        <div class="new-text">
+                            <ul>
+                                <li><a href="/chi-tiet/<%= pro.name%>.<%= pro._id%>.<%= pro.cateId%>">Xem chi tiết </a></li>
+                                <li><a class="item_add" href="/add-cart.<%= pro._id %>"> Thêm vào giỏ hàng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="new-bottom">
+                        <h5><a class="name" href="/chi-tiet/<%= pro.name%>.<%= pro._id%>.<%= pro.cateId%>"><%=pro.name.substring(0, 13)%>...</a></h5>
+                        <br>
+                        <div class="rating">
+                          <span class="on">☆</span>
+                          <span class="on">☆</span>
+                          <span class="on">☆</span>
+                          <span >☆</span>
+                          <span>☆</span>
+                        </div>
+                        <%if( pro.promotion <= 0 ) { %>
+                        <div class="ofr">
+                        	<p style = "width:100%;">
+                            Giá: 
+                            <span class="item_price" style="color: #FF590F;"><%=pro.price%> VNĐ</span>
+                          </p>
+                        </div>
+                        <% } else { %>
+                        <div class="ofr">
+                        	<p>
+                            Giá: 
+                            <del><%=pro.price%> VNĐ</del>
+                            <span class="item_price" style="color: #FF590F;"><%=(pro.price)-((pro.price) * ((pro.promotion) /100))%> VNĐ</span>
+                          </p>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+      <%}}})%>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<% })%>
+<!--trend-->
+<div class="trend wow zoomIn animated" data-wow-delay=".5s">
+  <div class="container">
+    <div class="trend-info">
+      <section class="slider grid">
+        <div class="flexslider trend-slider">
+          <ul class="slides">
+            <li>
+              <div class="col-md-5 trend-left">
+                <img src="customer/images/t1.png" alt="" />
+              </div>
+              <div class="col-md-7 trend-right">
+                <h4>TOP 10 TRENDS <span>FOR YOU</span></h4>
+                <h5>Flat 20% OFF</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus, justo ac volutpat
+                  vestibulum, dolor massa pharetra nunc, nec facilisis lectus nulla a tortor. Duis ultrices nunc a
+                  nisi malesuada suscipit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                  inceptos himenaeos. Aliquam eu bibendum felis. Sed viverra dapibus tincidunt.</p>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <div class="col-md-5 trend-left">
+                <img src="customer/images/t2.png" alt="" />
+              </div>
+              <div class="col-md-7 trend-right">
+                <h4>TOP 10 TRENDS <span>FOR YOU</span></h4>
+                <h5>Flat 20% OFF</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus, justo ac volutpat
+                  vestibulum, dolor massa pharetra nunc, nec facilisis lectus nulla a tortor. Duis ultrices nunc a
+                  nisi malesuada suscipit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                  inceptos himenaeos. Aliquam eu bibendum felis. Sed viverra dapibus tincidunt.</p>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <div class="col-md-5 trend-left">
+                <img src="customer/images/t3.png" alt="" />
+              </div>
+              <div class="col-md-7 trend-right">
+                <h4>TOP 10 TRENDS <span>FOR YOU</span></h4>
+                <h5>Flat 20% OFF</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus, justo ac volutpat
+                  vestibulum, dolor massa pharetra nunc, nec facilisis lectus nulla a tortor. Duis ultrices nunc a
+                  nisi malesuada suscipit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                  inceptos himenaeos. Aliquam eu bibendum felis. Sed viverra dapibus tincidunt.</p>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li>
+              <div class="col-md-5 trend-left">
+                <img src="customer/images/t4.png" alt="" />
+              </div>
+              <div class="col-md-7 trend-right">
+                <h4>TOP 10 TRENDS <span>FOR YOU</span></h4>
+                <h5>Flat 20% OFF</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus, justo ac volutpat
+                  vestibulum, dolor massa pharetra nunc, nec facilisis lectus nulla a tortor. Duis ultrices nunc a
+                  nisi malesuada suscipit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                  inceptos himenaeos. Aliquam eu bibendum felis. Sed viverra dapibus tincidunt.</p>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<!--//trend-->
+<% include ../layout/footer.ejs %>
+
+
+  <!--search jQuery-->
+  <script src="customer/js/main.js"></script>
+  <!--//search jQuery-->
+  <!--smooth-scrolling-of-move-up-->
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      var defaults = {
+        containerID: 'toTop', // fading element id
+        containerHoverID: 'toTopHover', // fading element hover id
+        scrollSpeed: 1200,
+        easingType: 'linear'
+      };
+
+      $().UItoTop({
+        easingType: 'easeOutQuart'
+      });
+
+    });
+  </script>
+
+  <script type="text/javascript">
+		function notify() {
+			$.notify("Access granted", "success");
+		}
+	</script>
+  <!--//smooth-scrolling-of-move-up-->
+  <!--Bootstrap core JavaScript
+  ================================================== -->
+  <!--Placed at the end of the document so the pages load faster -->
+  <script src="customer/js/bootstrap.js"></script>
+</body>
+<html>

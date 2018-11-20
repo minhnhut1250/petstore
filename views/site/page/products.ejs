@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Pet Store - Cửa hàng thú cưng trực tuyến</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href="http://localhost:8000/">
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!--//for-mobile-apps -->
+    <!--Custom Theme files -->
+    <link href="customer/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="customer/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//Custom Theme files -->
+    <!--js-->
+    <script src="customer/js/jquery-1.11.1.min.js"></script>
+    <script src="customer/js/modernizr.custom.js"></script>
+    <link rel="stylesheet" type="text/css" href="customer/css/jquery-ui.css">
+    <!--//js-->
+    <!--cart-->
+    <!-- <script src="customer/js/simpleCart.min.js"></script> -->
+    <!--cart-->
+    <!--web-fonts-->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+        rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Pompiere' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fascinate' rel='stylesheet' type='text/css'>
+    <!--web-fonts-->
+    <!--animation-effect-->
+    <link href="customer/css/animate.min.css" rel="stylesheet">
+    <script src="customer/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//animation-effect-->
+    <!--start-smooth-scrolling-->
+    <script type="text/javascript" src="customer/js/move-top.js"></script>
+    <script type="text/javascript" src="customer/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+
+
+</head>
+
+<body>
+
+    <% include ../layout/header.ejs %>
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+                <li><a href="trang-chu"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+                <li class="active">Sản phẩm</li>
+            </ol>
+        </div>
+    </div>
+    <!--//breadcrumbs-->
+    <!--products-->
+    <div class="products">
+        <div class="container">
+            <div class="col-md-9 product-model-sec">
+                <div class="grids">
+                <%  product.forEach(function(pro) {%>
+                    <div class="product-grids <%=pro.cateId%> " style="margin-right: 1.25em" data-wow-delay=".5s">
+                        <div class="new-top"  style="height:300px;">
+                                <a href="/chi-tiet/<%= pro.name%>.<%= pro._id%>.<%= pro.cateId%>"><img src="upload/<%= pro.img %>" class="img-responsive" alt="" /></a>
+                                <div class="new-text">
+                                    <ul>
+                                        <li><a href="/chi-tiet/<%= pro.name%>.<%= pro._id%>.<%= pro.cateId%>">Xem chi tiết </a></li>
+                                        <li><a class="item_add" href="/add-cart.<%= pro._id %>"> Thêm vào giỏ hàng</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="new-bottom">
+                                <h5><a class="name" href="/chi-tiet/<%= pro.name%>.<%= pro._id%>.<%= pro.cateId%>"><%=pro.name.substring(0, 13)%>...</a></h5>
+                                <br>
+                                <div class="rating">
+                                    <span class="on">☆</span>
+                                    <span class="on">☆</span>
+                                    <span class="on">☆</span>
+                                    <span >☆</span>
+                                    <span>☆</span>
+                                </div>
+                                <%if( pro.promotion <= 0 ) { %>
+                                <div class="ofr">
+                                    <p style = "width:100%;">
+                                    Giá: 
+                                    <span class="item_price" id="price<%=pro.price%>" style="color: #FF590F;"><%=pro.price%> VNĐ</span>
+                                </p>
+                                </div>
+                                <% } else { %>
+                                <div class="ofr">
+                                    <p>
+                                    Giá: 
+                                    <del><%=pro.price%> VNĐ</del>
+                                    <span class="item_price" id="price<%=pro.price%>" style="color: #FF590F;"><%=(pro.price)-((pro.price) * ((pro.promotion) /100))%> VNĐ</span>
+                                </p>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>   
+                <% }) %>
+                </div>
+                    <% if (pageCount > 1) { %>
+                    <ul class="pagination">
+                        <% if (currentPage > 1) { %>
+                            <li><a href="san-pham/?page=1">&laquo;</a></li>
+                        <% } %>
+                        <% var i = 1;
+                        if (currentPage > 5) {
+                            i = +currentPage - 4;
+                        } %>
+                        <% if (i !== 1) { %>
+                            <li class="disabled"><a href="#">...</a></li>
+                        <% } %>
+                        <% for (i; i<=pageCount; i++) { %>
+                            <% if (currentPage == i) { %>
+                                <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+                            <% } else { %>
+                                <li><a href="san-pham/?page=<%= i %>"><%= i %></a></li>
+                            <% } %>
+                            <% if (i == (+currentPage + 4)) { %>
+                                <li class="disabled"><a href="#">...</a></li>
+                            <% break; } %>
+                        <% } %>
+                        <% if (currentPage != pageCount) { %>
+                            <li><a href="san-pham/?page=<%= pageCount %>">&raquo;</a></li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+            </div>
+            <div class="col-md-3 rsidebar">
+                <div class="rsidebar-top">
+                    <div class="slider-left">
+                        <h4>Lọc Theo Giá</h4>
+                        <div id="slider-range"></div>
+                        <input type="text" id="amount1" class="amount" style="border:0; font-weight:bold; width: 100%; padding-top: 1.5em;" readonly>
+                        <input type="text" hidden id="amount" class="amount" style="border:0; font-weight:bold; width: 100%" readonly>
+                        <script type='text/javascript'>
+                            $(window).load(function () {
+                                if ($("#slider-range").length) {
+                                    $("#slider-range").slider({
+                                        range: true,
+                                        min: 0,
+                                        max: 600000,
+                                        values: [0, 600000],
+                                        slide: function(event, ui) {
+                                            $("#amount").val( ui.values[0]+ " VNĐ - " + ui.values[1]+" VNĐ");
+                                            $("#amount1").val( ui.values[0].toLocaleString()+ " VNĐ - " + ui.values[1].toLocaleString()+" VNĐ");
+                                        }
+                                    });
+                                    $("#amount").val( $("#slider-range").slider("values", 0) + " VNĐ - " + $("#slider-range").slider("values", 1)+" VNĐ");
+                                    $("#amount1").val( $("#slider-range").slider("values", 0) + " VNĐ - " + $("#slider-range").slider("values", 1)+" VNĐ");
+                                    $('.ui-slider-handle').on('mouseup', function() {
+                                        console.clear();
+                                        $('.grids').isotope({
+                                            filter: function() {
+                                                var priceRange = $('#amount').val();
+                                                var priceMin = parseInt(priceRange.split('-')[0].replace('VNĐ',''));
+                                                var priceMax = parseInt(priceRange.split('-')[1].replace('VNĐ','').replace(' ', ''));
+                                                var itemPrice = parseInt($(this).find('.item_price').clone().children().remove().end().text().replace( '', '' ));
+                                                var isInHeightRange = (priceMin <= itemPrice && priceMax >= itemPrice);
+                                            return isInHeightRange;
+                                            },
+                                            animationOptions: {
+                                                duration: 100,
+                                                easing: 'linear',
+                                                queue: false
+                                            },
+                                        });
+                                    });
+                                }
+                            });
+                        </script>
+                        <script type="text/javascript" src="customer/js/jquery-ui.js"></script>
+                    </div>
+                    <div class="sidebar-row">
+                        <h4>Lọc Theo Loại</h4>
+                        <ul id="accordion" class="faq">
+                            <%   cate.forEach(function(ca){ var id = 0; %>
+                            <li><label class="checkbox"><input type="checkbox" value=".<%=ca._id%>" name="checkbox"><i></i><%=ca.name%></label></li>
+                            <% }) %>
+                        </ul>                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="clearfix"> </div>
+            
+        </div>
+    </div>
+
+    <% include ../layout/footer.ejs %>
+    <!-- the jScrollPane script -->
+    <script type="text/javascript" src="customer/js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" id="sourcecode">
+        $(function () {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
+    <script type="text/javascript" src="customer/js/jquery.mousewheel.js"></script>
+    <script src="customer/js/main.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script>
+        var $container = $('.grids').isotope({
+            itemSelector: '.product-grids'
+        });
+        var $checkboxes = $('#accordion input');
+            $checkboxes.change( function() {
+            var inclusives = [];
+            $checkboxes.each( function( i, elem ) {
+                if ( elem.checked ) {
+                    inclusives.push( elem.value );
+                }
+            });
+        var filterValue = inclusives.length ? inclusives.join(', ') : '*';
+            $container.isotope({ filter: filterValue })
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <!--//smooth-scrolling-of-move-up-->
+    <!--Bootstrap core JavaScript
+================================================== -->
+    <!--Placed at the end of the document so the pages load faster -->
+    <script src="customer/js/bootstrap.js"></script>
+</body>
+<html>

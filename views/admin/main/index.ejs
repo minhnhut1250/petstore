@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Quản trị viên - Thống kê</title>
+    <base href="http://localhost:8000">
+    <!-- Fontfaces CSS-->
+    <link href="admin/css/font-face.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="admin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="admin/css/theme.css" rel="stylesheet" media="all">
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <% include ../layout/sidebar %>
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- HEADER DESKTOP-->
+            <% include ../layout/header %>
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <% if(success_msg.info){ success_msg.info}%>
+                        <div class="row m-t-25">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item statistic__item--green">
+                                    <h2 class="number">10,368</h2>
+                                    <span class="desc">members online</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-account-o"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item statistic__item--orange">
+                                    <h2 class="number">388,688</h2>
+                                    <span class="desc">items sold</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item statistic__item--blue">
+                                    <h2 class="number">1,086</h2>
+                                    <span class="desc">this week</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-calendar-note"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="statistic__item statistic__item--red">
+                                    <h2 class="number">$1,060,386</h2>
+                                    <span class="desc">total earnings</span>
+                                    <div class="icon">
+                                        <i class="zmdi zmdi-money"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="title-5 m-b-35">THỐNG KÊ</h3>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">THỐNG KÊ SỐ LƯỢNG SẢN PHẨM</h3>
+                                        <canvas id="pie-chart" width="800" height="450" style="margin-top:5px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">THỐNG KÊ DOANH THU SẢN PHẨM</h3>
+                                        <canvas id="polar-chart" width="800" height="450"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t-30">
+                            <div class="col-md-12">
+                                <h3 class="title-5 m-b-35">DANH SÁCH KHÁCH HÀNG ĐÃ MUA</h3>
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+                                            <tr>
+                                                <th>date</th>
+                                                <th>type</th>
+                                                <th>description</th>
+                                                <th>status</th>
+                                                <th>price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2018-09-29 05:57</td>
+                                                <td>Mobile</td>
+                                                <td>iPhone X 64Gb Grey</td>
+                                                <td class="process">Processed</td>
+                                                <td>$999.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-28 01:22</td>
+                                                <td>Mobile</td>
+                                                <td>Samsung S8 Black</td>
+                                                <td class="process">Processed</td>
+                                                <td>$756.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-27 02:12</td>
+                                                <td>Game</td>
+                                                <td>Game Console Controller</td>
+                                                <td class="denied">Denied</td>
+                                                <td>$22.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-26 23:06</td>
+                                                <td>Mobile</td>
+                                                <td>iPhone X 256Gb Black</td>
+                                                <td class="denied">Denied</td>
+                                                <td>$1199.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-25 19:03</td>
+                                                <td>Accessories</td>
+                                                <td>USB 3.0 Cable</td>
+                                                <td class="process">Processed</td>
+                                                <td>$10.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-29 05:57</td>
+                                                <td>Accesories</td>
+                                                <td>Smartwatch 4.0 LTE Wifi</td>
+                                                <td class="denied">Denied</td>
+                                                <td>$199.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-24 19:10</td>
+                                                <td>Camera</td>
+                                                <td>Camera C430W 4k</td>
+                                                <td class="process">Processed</td>
+                                                <td>$699.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-22 00:43</td>
+                                                <td>Computer</td>
+                                                <td>Macbook Pro Retina 2017</td>
+                                                <td class="process">Processed</td>
+                                                <td>$10.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT-->
+            <!-- END PAGE CONTAINER-->
+        </div>
+
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="admin/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="admin/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="admin/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="admin/vendor/slick/slick.min.js">
+    </script>
+    <script src="admin/vendor/wow/wow.min.js"></script>
+    <script src="admin/vendor/animsition/animsition.min.js"></script>
+    <script src="admin/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="admin/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="admin/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="admin/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="admin/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="admin/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="admin/vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="admin/js/main.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post(
+                './admin/getUser', {
+
+                },
+                function (data) {
+                    $('img.avatar').attr('src', 'admin/images/' + data.img);
+                    $('.name').html(data.username);
+                }
+            )
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+                labels: ["Africa", "Asia", "Europe", "Latin America",
+                    "North America"
+                ],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",
+                        "#e8c3b9", "#c45850"
+                    ],
+                    data: [2478, 5267, 734, 784, 433]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Biểu đồ này thống kê số lượng các sản phẩm bán ra theo từng loại'
+                },
+                legend: {
+                    position: 'left',
+                    labels: {
+                        fontFamily: 'Poppins'
+                    }
+
+                },
+                responsive: true
+            }
+        });
+
+        new Chart(document.getElementById("polar-chart"), {
+            type: 'polarArea',
+            data: {
+                labels: ["Africa", "Asia", "Europe", "Latin America",
+                    "North America"
+                ],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",
+                        "#e8c3b9", "#c45850"
+                    ],
+                    data: [2478, 5267, 734, 784, 433]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Biểu đồ này thống kê doanh thu theo từng loại'
+                },
+                legend: {
+                    position: 'left',
+                    labels: {
+                        fontFamily: 'Poppins'
+                    }
+
+                },
+                responsive: true
+            }
+        });
+    </script>
+</body>
+
+</html>
+<!-- end document-->

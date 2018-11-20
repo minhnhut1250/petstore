@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Quản trị viên - Quản lý sản phẩm</title>
+    <base href="http://localhost:8000">
+
+    <!-- Fontfaces CSS-->
+    <link href="admin/css/font-face.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+
+    <!-- Bootstrap CSS-->
+    <link href="admin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="admin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="admin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="admin/css/theme.css" rel="stylesheet" media="all">
+
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <% include ../layout/sidebar %>
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- HEADER DESKTOP-->
+            <% include ../layout/header %>
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="title-5 m-b-35">DANH SÁCH SẢN PHẨM</h3>
+                                <!-- DATA TABLE -->
+                                <div class="table-data__tool" style="float:right;">
+                                    <div class="table-data__tool-right">
+                                        <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal"
+                                            data-target="#addProduct">
+                                            <i class="zmdi zmdi-plus"></i>Thêm sản phẩm mới</button>
+                                    </div>
+                                </div>
+                                <% if(success_msg != ''){ %>
+                                <div class="alert alert-success">
+                                    <%= success_msg%>
+                                </div>
+                                <% } %>
+                                <% if(errors) { %>
+                                <div class="alert alert-danger">
+                                    <% errors.forEach(function(e){ %>
+                                    <%= e.msg %> <br />
+                                    <%});%>
+                                </div>
+                                <% };%>
+                                <div class="table-responsive table-responsive-data2">
+                                    <table class="table table-data2">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>TÊN SẢN PHẨM</th>
+                                                <th>Hình ảnh</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% var id = 0 %>
+                                            <% product.forEach(function(item){ id ++ %>
+                                            <tr class="tr-shadow">
+                                                <td>
+                                                    <%= id%>
+                                                </td>
+                                                <td>
+                                                    <%= item.name%>
+                                                </td>
+                                                <td> <img src="upload/<%= item.img%>" width="100px" alt=""></td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                        <button data-toggle="modal" data-target="#<%= item._id %>"
+                                                            class="item">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                        <a onclick="return confirm('Bạn có chắc muốn xóa loại sản phẩm này không ?');"
+                                                            href="/admin/san-pham/<%= item._id %>/xoa" class="item">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="spacer"></tr>
+                                            <%})%>
+                                        </tbody>
+                                    </table>
+                                    <div class="center">
+                                        <% if (pageCount > 1) { %>
+                                            <ul class="pagination" style="display: inline-block;">
+                                                <% if (currentPage > 1) { %>
+                                                <li style="display: inline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;"><a href="admin/san-pham/qly-san-pham/?page=1">&laquo;</a></li>
+                                                <% } %>
+                                                <% var i = 1;
+                                                if (currentPage > 5) {
+                                                    i = +currentPage - 4;
+                                                } %>
+                                                <% if (i !== 1) { %>
+                                                <li class="disabled"><a href="#">...</a></li>
+                                                <% } %>
+                                                <% for (i; i<=pageCount; i++) { %>
+                                                <% if (currentPage == i) { %>
+                                                <li class="active"><span>
+                                                        <%= i %> <span class="sr-only">(current)</span></span></li>
+                                                <% } else { %>
+                                                <li><a href="admin/san-pham/qly-san-pham/?page=<%= i %>">
+                                                        <%= i %></a></li>
+                                                <% } %>
+                                                <% if (i == (+currentPage + 4)) { %>
+                                                <li class="disabled"><a href="#">...</a></li>
+                                                <% break; } %>
+                                                <% } %>
+                                                <% if (currentPage != pageCount) { %>
+                                                <li><a href="admin/san-pham/qly-san-pham/?page=<%= pageCount %>">&raquo;</a></li>
+                                                <% } %>
+                                            </ul>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT-->
+            <!-- END PAGE CONTAINER-->
+        </div>
+
+    </div>
+    <!-- modal scroll -->
+    <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scrollmodalLabel">Thêm sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="admin/san-pham/qly-san-pham" method="post" enctype="multipart/form-data">
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Tên sản phẩm</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="text" id="name" value="" class="form-control" name="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Hình</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="file" id="hinh" value="" required="required" class="form-control" name="hinh">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Giá</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="number" id="gia" value="" min="0" class="form-control" name="gia">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Giảm Giá</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="number" id="giamgia" value="" min="0" class="form-control" name="giamgia">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Số Lượng</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="number" id="soluong" value="" min="0" class="form-control" name="soluong">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Thể Loại</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <select class="form-control" id="cate" name="cate">
+                                        <% cate.forEach(function(item){ %>
+                                        <option value="<%= item._id%>">
+                                            <%= item.name%>
+                                        </option>
+                                        <%})%>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Chi Tiết Sản Phẩm</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <textarea name="des" id="des" class="form-control autogrow" cols="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="text-left">
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                    <button type="submit" class="btn btn-primary">Thêm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal scroll -->
+
+    <% product.forEach(function(item){ %>
+
+    <div class="modal fade" id="<%= item._id %>" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scrollmodalLabel">Thêm sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="admin/san-pham/qly-san-pham/sua" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="id" value="<%=item._id%>" name="id" class="form-control">
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Name</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="text" id="name" value="<%= item.name%>" class="form-control" name="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Hình ảnh hiện tại</label>
+                                <span class="desc"></span><br />
+                                <img src="upload/<%= item.img%>" width="200px">
+                                <div class="controls">
+                                    <label class="form-label" for="field-120334">Hình ảnh cập nhật</label>
+                                    <div class="controls">
+                                        <input type="file" id="hinh" value="" required="required" class="form-control"
+                                            name="hinh">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Giá</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="number" id="gia" value="<%= item.price%>" min="0" class="form-control"
+                                        name="gia">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Giảm Giá</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="number" id="giamgia" value="<%= item.promotion%>" min="0" class="form-control"
+                                        name="giamgia">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Số Lượng</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="number" id="soluong" value="<%= item.quantity%>" min="0" class="form-control"
+                                        name="soluong">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Thể Loại</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <select class="form-control" id="cate" name="cate">
+                                        <% cate.forEach(function(item){ %>
+                                        <option value="<%= item._id%>" <%=(item._id==item.cateId) ?
+                                            'selected=\"selected\"' : '' %> >
+                                            <%= item.name%>
+                                        </option>
+                                        <%})%>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="form-group">
+                                <label class="form-label" for="field-120334">Chi Tiết Sản Phẩm</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <textarea name="des" id="des" class="form-control autogrow" cols="5"><%= item.des%></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
+                            <div class="text-left">
+                                <button type="submit" class="btn btn-success">Lưu Lại</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% }) %>
+
+    <!-- Jquery JS-->
+    <script src="admin/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="admin/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="admin/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="admin/vendor/slick/slick.min.js">
+    </script>
+    <script src="admin/vendor/wow/wow.min.js"></script>
+    <script src="admin/vendor/animsition/animsition.min.js"></script>
+    <script src="admin/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="admin/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="admin/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="admin/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="admin/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="admin/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="admin/vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="admin/js/main.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post(
+                './admin/getUser', {
+
+                },
+                function (data) {
+                    $('img.avatar').attr('src', 'admin/images/' + data.img);
+                    $('.name').html(data.username);
+                }
+            )
+        });
+    </script>
+</body>
+
+</html>
+<!-- end document-->
