@@ -15,7 +15,7 @@ router.get('/danh-sach', checkAdmin, function(req, res, next) {
   
 });
 
-router.get('/:id/xu-ly',checkAdmin, function(req, res, next) {
+router.get('/:id/giao-hang',checkAdmin, function(req, res, next) {
  	var id = req.params.id;
  	Cart.findById(id, function(err, data){
  		data.st = 1;
@@ -23,6 +23,16 @@ router.get('/:id/xu-ly',checkAdmin, function(req, res, next) {
  		req.flash('success_msg', 'Đã Xử Lý Thành Công');
 		res.redirect('/admin/don-hang/danh-sach'); 
  	});
+});
+
+router.get('/:id/thanh-toan',checkAdmin, function(req, res, next) {
+	var id = req.params.id;
+	Cart.findById(id, function(err, data){
+		data.st = 2;
+		data.save();
+		req.flash('success_msg', 'Đã Xử Lý Thành Công');
+	 res.redirect('/admin/don-hang/danh-sach'); 
+	});
 });
 
 

@@ -86,9 +86,11 @@
                                                 </td>
                                                 <td>
                                                     <% if (item.st == 0 ) { %>
-                                                    <a  href="/admin/don-hang/<%= item._id %>/xu-ly" class="role admin">Xử lý</a>
-                                                    <% } else { %>  
-                                                    <span class="role member">Đã xử lý</span>
+                                                    <a href="/admin/don-hang/<%= item._id %>/giao-hang" class="role admin">Giao Hàng</a>
+                                                    <% } else if (item.st == 1 ) { %>
+                                                    <a href="/admin/don-hang/<%= item._id %>/thanh-toan" class="role member">Thanh Toán</span>
+                                                    <% } else if (item.st == 2) { %>
+                                                    <span class="role user">Đã Thanh Toán</span>
                                                     <% } %>
                                                 </td>
                                                 <td>
@@ -97,7 +99,8 @@
                                                             class="item">
                                                             <i class="fa fa-eye"></i>
                                                         </button>
-                                                        <a onclick="return confirm('Bạn có chắc muốn xóa loại sản phẩm này không ?');" href="/admin/don-hang/<%= item._id %>/xoa" class="item">
+                                                        <a onclick="return confirm('Bạn có chắc muốn xóa loại sản phẩm này không ?');"
+                                                            href="/admin/don-hang/<%= item._id %>/xoa" class="item">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </a>
                                                     </div>
@@ -134,67 +137,117 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="scrollmodalLabel">Chi tiết đơn hàng</h5>
+                    <h5 class="modal-title" id="scrollmodalLabel">XEM CHI TIẾT</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="admin/san-pham/qly-san-pham" method="post" enctype="multipart/form-data">
-                        <table id="example" class="display table table-hover table-condensed">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Hình</th>
-                                    <th>Số Lượng</th>
-                                    <th>Tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% var id = 0; var total = 0; var cart = item.cart %>
-                                <% cart.forEach(function(item){ id ++; total += item.tien;%>
-                                <tr>
-                                    <td>
-                                        <%= id%>
-                                    </td>
-                                    <td>
-                                        <%= item.item.name%>
-                                    </td>
-                                    <td> <img src="upload/<%= item.item.img%>" width="150px" alt=""></td>
-                                    <td>
-                                        <%= item.soluong%>
-                                    </td>
-                                    <td>
-                                        <%= item.tien%> VNĐ</td>
-                                </tr>
-                                <%})%>
-                                <tr>
-                                    <td colspan="5">
-                                        <% if(item.st == 0){ %>
-                                        <span>Đang Chờ Xử Lý</span>
-                                        <%}else{ %>
-                                        <span>Đã Xử Lý</span>
-                                        <%}%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <p><strong style="color:red">Tồng Tiền:
-                                            </strong>
-                                            <%= total %> VNĐ</p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="col-xs-12 col-sm-12 col-md-12 padding-bottom-30">
-                            <div class="text-left">
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <h3 class="text-center title-2">CHI TIẾT ĐƠN HÀNG</h3>
+                                    </div>
+                                    <hr>
+                                    <form action="" method="post" novalidate="novalidate">
+                                        <div class="row form-group">
+                                            <div class="col-3 col-md-3">
+                                                <label class=" form-control-label">TÊN KHÁCH HÀNG :</label>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <p class="form-control-static">
+                                                    <%= item.name%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-3 col-md-3">
+                                                <label class=" form-control-label">EMAIL :</label>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <p class="form-control-static">
+                                                    <%= item.email%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-3 col-md-3">
+                                                <label class=" form-control-label">SỐ ĐIỆN THOẠI :</label>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <p class="form-control-static">
+                                                    <%= item.sdt%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-3 col-md-3">
+                                                <label class=" form-control-label">ĐỊA CHỈ GIAO HÀNG :</label>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <p class="form-control-static">
+                                                    <%= item.address%>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col-3 col-md-3">
+                                                <label class=" form-control-label">TÌNH TRẠNG :</label>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <p class="form-control-static">
+                                                    <% if(item.st == 0){ %>
+                                                        <span>Đang Chờ Xử Lý</span>
+                                                        <% } else if (item.st == 1 ) { %>
+                                                        <span>Đã Giao Hàng</span>
+                                                        <% } else if (item.st == 2 ) { %>
+                                                        <span>Đã Thanh Toán</span>
+                                                        <% } %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <table id="example" class="display table table-hover table-condensed">
+                                            <thead>
+                                                <tr style="background-color:cornflowerblue;">
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Số Lượng</th>
+                                                    <th>Tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% var id = 0; var total = 0; var cart = item.cart %>
+                                                <% cart.forEach(function(item){ id ++; total += item.tien;%>
+                                                <tr>
+                                                    <td>
+                                                        <%= id%>
+                                                    </td>
+                                                    <td>
+                                                        <%= item.item.name%>
+                                                    </td>
+                                                    <td>
+                                                        <%= item.soluong%>
+                                                    </td>
+                                                    <td>
+                                                        <%= item.tien%> VNĐ</td>
+                                                </tr>
+                                                <%})%>
+                                            </tbody>
+                                        </table>
+                                        <hr>
+                                    </form>
+                                    <p style="color:red; float: right;">Tồng Tiền :  <span><%= total %> VNĐ</span></p>
+                                    </strong>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    <button type="button" class="btn btn-success" >Xuất hóa đơn</button>
                 </div>
             </div>
         </div>

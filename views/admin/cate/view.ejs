@@ -53,7 +53,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                            <h3 class="title-5 m-b-35">DANH SÁCH LOẠI SẢN PHẨM</h3>
+                                <h3 class="title-5 m-b-35">DANH SÁCH LOẠI SẢN PHẨM</h3>
                                 <!-- DATA TABLE -->
                                 <div class="table-data__tool" style ="float:right;">
                                     <div class="table-data__tool-right">
@@ -62,23 +62,23 @@
                                             <i class="zmdi zmdi-plus"></i>Thêm loại sản phẩm mới</button>
                                     </div>
                                 </div>
-                                <% if(success_msg != ''){ %>
-                                <div class="alert alert-success">
-                                    <%= success_msg%>
-                                </div>
-                                <% } %>
-                                <% if(error_msg != ''){ %> 
-                                <div class="alert alert-warning">
-                                    <%= error_msg%></div>
-                                   <% } %>
-                                <% if(errors) { %>
-                                <div class="alert alert-danger">
-                                    <% errors.forEach(function(e){ %>
-                                    <%= e.msg %> <br />
-                                    <%});%>
-                                </div>
-                                <% };%>
                                 <div class="table-responsive table-responsive-data2">
+                                    <% if(success_msg != ''){ %>
+                                    <div class="alert alert-success">
+                                        <%= success_msg%>
+                                    </div>
+                                    <% } %>
+                                    <% if(error_msg != ''){ %> 
+                                    <div class="alert alert-warning">
+                                        <%= error_msg%></div>
+                                    <% } %>
+                                    <% if(errors) { %>
+                                    <div class="alert alert-danger">
+                                        <% errors.forEach(function(e){ %>
+                                        <%= e.msg %> <br />
+                                        <%});%>
+                                    </div>
+                                    <% };%>
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
