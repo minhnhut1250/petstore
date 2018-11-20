@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 B1: git clone https://github.com/minhnhut1250/petstore.git
 B2: npm install
 B3: nodemon start or npm start
@@ -6,4 +7,14 @@ B5: Go to customer page: localhost:8000/trang-chu
 
 account admin:
 + username:admin1
+=======
+B1: git clone https://github.com/minhnhut1250/petstore.git
+B2: npm install
+B3: nodemon start or npm start
+B4: Go to admin page: localhost:8000/admin
+B5: Go to customer page: localhost:8000/trang-chu
+
+account admin:
++ username:admin1
+>>>>>>> 29d7941cabdbdd9bcc5b330b01590204aeabfaaa
 + password: nhut
