@@ -91,7 +91,7 @@ app.use('/admin', admin);
 app.use('/admin/loai-san-pham', cate);
 app.use('/admin/san-pham', product);
 app.use('/admin/don-hang', cart);
-app.use('/admin/thong-ke', statistic);
+app.use('/admin', statistic);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

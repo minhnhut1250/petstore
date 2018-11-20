@@ -225,7 +225,6 @@
     </script>
     <script src="admin/vendor/circle-progress/circle-progress.min.js"></script>
     <script src="admin/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="admin/vendor/chartjs/Chart.bundle.min.js"></script>
     <script src="admin/vendor/select2/select2.min.js">
     </script>
 
@@ -239,7 +238,7 @@
 
                 },
                 function (data) {
-                    $('img.avatar').attr('src', 'admin/images/' + data.img);
+                    $('img.avatar').attr('src', 'upload/' + data.img);
                     $('.name').html(data.username);
                 }
             )

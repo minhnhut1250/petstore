@@ -10,14 +10,17 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 
+
+router.get('/', function(req, res, next) {
+  res.render('admin/login/login');
+});
+
 /* GET home page. */
 router.get('/trang-chu', checkAdmin, function(req, res, next) {
   res.render('admin/main/index');
 });
 
-router.get('/', function(req, res, next) {
-  res.render('admin/login/login');
-});
+
 
 router.post('/',
   passport.authenticate('local', { 
@@ -69,6 +72,9 @@ router.post('/getUser',checkAdmin, function (req, res) {
     res.json(req.user);
 });
 
+router.get('/dang-xuat',checkAdmin, function (req, res) {
+  res.render('admin/login/login');
+});
 
 router.post('/dang-xuat',checkAdmin, function (req, res) {
     req.logout();

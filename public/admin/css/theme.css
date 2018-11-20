@@ -3553,8 +3553,6 @@ section {
 }
 
 .avatar {
-    height: 60px;
-    width: 60px;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
