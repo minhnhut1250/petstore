@@ -63,6 +63,7 @@
                                             <i class="zmdi zmdi-plus"></i>Thêm sản phẩm mới</button>
                                     </div>
                                 </div>
+                                <div class="table-responsive table-responsive-data2">
                                 <% if(success_msg != ''){ %>
                                 <div class="alert alert-success">
                                     <%= success_msg%>
@@ -75,7 +76,6 @@
                                     <%});%>
                                 </div>
                                 <% };%>
-                                <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
@@ -113,37 +113,6 @@
                                             <%})%>
                                         </tbody>
                                     </table>
-                                    <div class="center">
-                                        <% if (pageCount > 1) { %>
-                                            <ul class="pagination" style="display: inline-block;">
-                                                <% if (currentPage > 1) { %>
-                                                <li style="display: inline; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;"><a href="admin/san-pham/qly-san-pham/?page=1">&laquo;</a></li>
-                                                <% } %>
-                                                <% var i = 1;
-                                                if (currentPage > 5) {
-                                                    i = +currentPage - 4;
-                                                } %>
-                                                <% if (i !== 1) { %>
-                                                <li class="disabled"><a href="#">...</a></li>
-                                                <% } %>
-                                                <% for (i; i<=pageCount; i++) { %>
-                                                <% if (currentPage == i) { %>
-                                                <li class="active"><span>
-                                                        <%= i %> <span class="sr-only">(current)</span></span></li>
-                                                <% } else { %>
-                                                <li><a href="admin/san-pham/qly-san-pham/?page=<%= i %>">
-                                                        <%= i %></a></li>
-                                                <% } %>
-                                                <% if (i == (+currentPage + 4)) { %>
-                                                <li class="disabled"><a href="#">...</a></li>
-                                                <% break; } %>
-                                                <% } %>
-                                                <% if (currentPage != pageCount) { %>
-                                                <li><a href="admin/san-pham/qly-san-pham/?page=<%= pageCount %>">&raquo;</a></li>
-                                                <% } %>
-                                            </ul>
-                                        <% } %>
-                                    </div>
                                 </div>
                                 <!-- END DATA TABLE -->
                             </div>

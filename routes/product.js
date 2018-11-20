@@ -23,29 +23,21 @@ router.get('/', checkAdmin, function (req, res) {
 });
 
 router.get('/qly-san-pham', checkAdmin, function (req, res) {
-	var pageSize = 10
-	var currentPage = req.query.page || 1
 	Cate.find().then(function (cate) {
-		Product.find().skip((pageSize * currentPage) - pageSize).limit(pageSize).exec((err, pro) => {
-			Product.count().exec((err, count) => {
-				if (err) return next(err)
-				res.render('admin/product/view', {
-					errors: null,
-					product: pro,
-					currentPage: currentPage,
-					cate: cate,
-					pageCount: Math.ceil(count / pageSize)
-				})
+		Product.find().then((pro) => {
+			res.render('admin/product/view', {
+				errors: null,
+				product: pro,
+				cate: cate,
 			})
 		})
-	});
+	})
 });
 
 router.post('/qly-san-pham', checkAdmin, upload.single('hinh'), function (req, res) {
 	req.checkBody('name', 'Tên không được rổng').notEmpty();
 	// req.checkBody('hinh', 'Hình không được rổng').notEmpty();
 	req.checkBody('gia', 'giá phải là số').isInt();
-	req.checkBody('des', 'Chi tiết không được rổng').notEmpty();
 	console.log(req.file);
 	var errors = req.validationErrors();
 	if (errors) {
@@ -95,7 +87,7 @@ router.post('/qly-san-pham', checkAdmin, upload.single('hinh'), function (req, r
 
 // });
 
-router.post('/qly-san-pham/sua', checkAdmin ,upload.single('hinh'), function (req, res) {
+router.post('/qly-san-pham/sua', checkAdmin, upload.single('hinh'), function (req, res) {
 	req.checkBody('name', 'Tên không được rổng').notEmpty();
 	// req.checkBody('hinh', 'Hình không được rổng').notEmpty();
 	req.checkBody('gia', 'giá phải là số').isInt();
@@ -136,7 +128,7 @@ router.post('/qly-san-pham/sua', checkAdmin ,upload.single('hinh'), function (re
 			data.price = req.body.gia;
 			data.promotion = req.body.giamgia;
 			data.quantity = req.body.soluong,
-			data.st = '0';
+				data.st = '0';
 
 			data.save();
 			req.flash('success_msg', 'Đã Sửa Thành Công Sản Phẩm ');
