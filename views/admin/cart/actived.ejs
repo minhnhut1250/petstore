@@ -53,13 +53,17 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <h3 class="title-5 m-b-35">DANH SÁCH ĐƠN HÀNG</h3>
-                                <!-- DATA TABLE -->
                                 <% if(success_msg != ''){ %>
                                 <div class="alert alert-success">
                                     <%= success_msg%>
                                 </div>
                                 <% } %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="title-5 m-b-35">DANH SÁCH ĐƠN HÀNG CHỜ GIAO HÀNG</h3>
+                                <!-- DATA TABLE -->
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2">
                                         <thead>
@@ -67,13 +71,12 @@
                                                 <th>TÊN KHÁCH HÀNG</th>
                                                 <th>EMAIL</th>
                                                 <th>SDT</th>
-                                                <th>ĐƠN HÀNG</th>
                                                 <th>TÌNH TRẠNG</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <% var total = 0%>
-                                            <% data.forEach(function(item){ total += item.tien; %>
+                                            <% data.forEach(function(item){ total += item.tien; if(item.st == 2) { %>
                                             <tr style="border-spacing: 1em">
                                                 <td>
                                                     <%= item.name%>
@@ -85,13 +88,7 @@
                                                     <%= item.sdt%>
                                                 </td>
                                                 <td>
-                                                    <% if (item.st == 0 ) { %>
-                                                    <a href="/admin/don-hang/<%= item._id %>/giao-hang" class="role admin">Giao Hàng</a>
-                                                    <% } else if (item.st == 1 ) { %>
-                                                    <a href="/admin/don-hang/<%= item._id %>/thanh-toan" class="role member">Thanh Toán</span>
-                                                    <% } else if (item.st == 2) { %>
-                                                    <span class="role user">Đã Thanh Toán</span>
-                                                    <% } %>
+                                                    <span class="role member">Đã Xử Lý</span>
                                                 </td>
                                                 <td>
                                                     <div class="table-data-feature">
@@ -107,7 +104,7 @@
                                                 </td>
                                             </tr>
                                             <tr class="spacer"></tr>
-                                            <%})%>
+                                            <% }}) %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -129,9 +126,7 @@
         </div>
 
     </div>
-
     <% data.forEach(function(item){ %>
-
     <div class="modal fade" id="<%= item._id %>" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -198,13 +193,7 @@
                                             </div>
                                             <div class="col-6 col-md-6">
                                                 <p class="form-control-static">
-                                                    <% if(item.st == 0){ %>
-                                                        <span>Đang Chờ Xử Lý</span>
-                                                        <% } else if (item.st == 1 ) { %>
-                                                        <span>Đã Giao Hàng</span>
-                                                        <% } else if (item.st == 2 ) { %>
-                                                        <span>Đã Thanh Toán</span>
-                                                        <% } %>
+                                                    <span>Đã Xử Lý</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -238,7 +227,8 @@
                                         </table>
                                         <hr>
                                     </form>
-                                    <p style="color:red; float: right;">Tồng Tiền :  <span><%= total %> VNĐ</span></p>
+                                    <p style="color:red; float: right;">Tồng Tiền : <span>
+                                            <%= total %> VNĐ</span></p>
                                     </strong>
                                 </div>
                             </div>
@@ -247,7 +237,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                    <button type="button" class="btn btn-success" >Xuất hóa đơn</button>
+                    <button type="button" class="btn btn-success">Xuất hóa đơn</button>
                 </div>
             </div>
         </div>

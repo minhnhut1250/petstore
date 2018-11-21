@@ -94,7 +94,6 @@ router.post('/dat-hang', function (req, res) {
 			items: {}
 		});
 		var data = giohang.convertArray();
-
 		var cart = new Cart({
 			name: req.body.name,
 			date: Date.now(),

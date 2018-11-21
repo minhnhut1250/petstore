@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Cate = require('../model/Cate.js');
+var Cart = require('../model/Cart.js');
 
 var User = require('../model/User.js');
 
@@ -19,8 +19,6 @@ router.get('/', function(req, res, next) {
 router.get('/trang-chu', checkAdmin, function(req, res, next) {
   res.render('admin/main/index');
 });
-
-
 
 router.post('/',
   passport.authenticate('local', { 

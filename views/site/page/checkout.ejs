@@ -148,9 +148,7 @@
                     class="img-responsive" alt=""></a>
               </div>
               <div class="cart-item-info">
-                <h4>
-                  <%= item.item.name%>
-                </h4>
+                <h4 style="font-size:15px;"><%=item.item.name%></h4>
               </div>
               <ul class="qty">
                 <li>
@@ -173,10 +171,10 @@
           </div>
           <hr>
           <%})}%>
+          <h4 style="float: right;">Tổng tiền:
+            <input style="width:65px; border:none;" id="total" name="total" value="<%=total%>" readonly></input>VNĐ
+          </h4>
         </div>
-        <h3 style="float: right;">Tổng tiền:
-          <%=total%> VNĐ
-        </h3>
       </div>
     </div>
   </div>

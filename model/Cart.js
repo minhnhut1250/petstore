@@ -11,7 +11,6 @@ var Cart = new Schema({
   msg 		: String,
   cart 		: Object,
   st 		: Number
-
 },{collection : 'cart'});
 
 module.exports = mongoose.model('Cart', Cart);
