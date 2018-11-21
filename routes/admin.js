@@ -16,67 +16,27 @@ router.get('/', function (req, res, next) {
   res.render('admin/login/login');
 });
 
-function TongDoanhThu(callback) {
-  MongoClient.connect(uri, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("3dwebsite");
-    dbo.collection("hoadon").find().toArray(function (err, result) {
-      if (err) {
-        throw err;
-        console.log(err);
-      } else if (result.length > 0) {
-        var tongket = {
-          giadung: 0,
-          fashion: 0,
-          mebe: 0,
-          thucung: 0,
-          xe: 0,
-          dientu: 0,
-        }
-        for (var i = 0; i < result.length; i++) {
-          var danhsach = result[i].danhsachsanpham;
-          tongket["giadung"] += parseInt(thongKe(danhsach, "giadung"));
-          tongket["fashion"] += parseInt(thongKe(danhsach, "fashion"));
-
-          tongket["thucung"] += parseInt(thongKe(danhsach, "thucung"));
-          tongket["xe"] += parseInt(thongKe(danhsach, "xe"));
-
-          tongket["dientu"] += parseInt(thongKe(danhsach, "dientu"));
-          tongket["mebe"] += parseInt(thongKe(danhsach, "mebe"));
-        }
-        var sum = 0;
-        for (var each in tongket) {
-          sum += tongket[each]
-        }
-        var result = {
-          tongSP: sum,
-          tongket: tongket
-        }
-        callback(result);
-      }
-    });
-    db.close();
-  });
-}
-
 /* GET home page. */
-router.get('/trang-chu', function (req, res, next) {
-  Cart.find({
-    st: 2
-  }).then(function (data) {
-    var tongtien = 0;
-    for (var i = 0; i < data.length; i++) {
-      var cart = data[i].cart;
-      for (j = 0; j < cart.length; j++) {
-        var tien = cart[j].tien;
-        tongtien += tien;
+router.get('/trang-chu', checkAdmin, function (req, res, next) {
+  Cate.find().then(function (cate) {
+    Cart.find({
+      st: 2
+    }).then(function (data) {
+      var tongtien = 0;
+      for (var i = 0; i < data.length; i++) {
+        var cart = data[i].cart;
+        for (j = 0; j < cart.length; j++) {
+          var tien = cart[j].tien;
+          tongtien += tien;
+        }
       }
-    }
-    res.render('admin/main/index',{
-      total:tongtien,
-    });
+      res.render('admin/main/index', {
+        tongtien: tongtien,
+        cart: data,
+        cate: cate,
+      });
+    })
   })
-  
 });
 
 router.post('/',

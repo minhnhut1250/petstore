@@ -68,6 +68,7 @@
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>TÊN KHÁCH HÀNG</th>
                                                 <th>EMAIL</th>
                                                 <th>SDT</th>
@@ -75,9 +76,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% var total = 0%>
-                                            <% data.forEach(function(item){ total += item.tien; if(item.st == 0) {  %>
+                                            <% var total = 0; var id = 0 ; %>
+                                            <% data.forEach(function(item){ total += item.tien; if(item.st == 0) { id++ %>
                                             <tr style="border-spacing: 1em">
+                                                <td><%=id%></td>
                                                 <td>
                                                     <%= item.name%>
                                                 </td>

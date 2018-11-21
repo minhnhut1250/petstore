@@ -62,12 +62,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h3 class="title-5 m-b-35">DANH SÁCH ĐƠN HÀNG CHỜ GIAO HÀNG</h3>
+                                <h3 class="title-5 m-b-35">DANH SÁCH ĐƠN HÀNG CHỜ THANH TOÁN</h3>
                                 <!-- DATA TABLE -->
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>TÊN KHÁCH HÀNG</th>
                                                 <th>EMAIL</th>
                                                 <th>SDT</th>
@@ -75,9 +76,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% var total = 0%>
-                                            <% data.forEach(function(item){ total += item.tien; if (item.st == 1) { %>
+                                            <% var total = 0; var id = 0; %>
+                                            <% data.forEach(function(item){ total += item.tien; if (item.st == 1) { id++ %>
                                             <tr style="border-spacing: 1em">
+                                                <td><%=id%></td>
                                                 <td>
                                                     <%= item.name%>
                                                 </td>
@@ -88,7 +90,7 @@
                                                     <%= item.sdt%>
                                                 </td>
                                                 <td>
-                                                    <a href="/admin/don-hang/<%= item._id %>/thanh-toan" class="role member">Thanh
+                                                    <a href="/admin/don-hang/<%= item._id %>/thanh-toan" class="role user">Thanh
                                                         Toán</span>
                                                 </td>
                                                 <td>
