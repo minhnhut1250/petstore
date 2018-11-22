@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var _ = require('lodash');
 
 var Cart = require('../model/Cart.js');
 var Cate = require('../model/Cate.js');
@@ -9,8 +10,6 @@ var User = require('../model/User.js');
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
-
 
 router.get('/', function (req, res, next) {
   res.render('admin/login/login');
@@ -25,9 +24,16 @@ router.get('/trang-chu', checkAdmin, function (req, res, next) {
       var tongtien = 0;
       for (var i = 0; i < data.length; i++) {
         var cart = data[i].cart;
-        for (j = 0; j < cart.length; j++) {
+        for ( var j = 0; j < cart.length; j++) {
           var tien = cart[j].tien;
           tongtien += tien;
+          var item = cart[j].item;
+          var id = item._id;
+          var loaisp = item.cateId;
+          var item = {};
+          item[id] = loaisp;
+          var a =_.countBy(item, (e) => e[Object.keys(e)[0]] === loaisp );
+          console.log(a.true);
         }
       }
       res.render('admin/main/index', {
