@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Quản trị viên - Trang chủ</title>
+    <title>Quản trị viên - Trang chủ thống kê</title>
     <base href="http://localhost:8000">
     <!-- Fontfaces CSS-->
     <link href="admin/css/font-face.css" rel="stylesheet" media="all">
@@ -103,7 +103,8 @@
                                                 <i class="zmdi zmdi-money"></i>
                                             </div>
                                             <div class="text">
-                                                <h3 style="color:#fff"><%=tongtien%>đ</h3>
+                                                <h3 style="color:#fff">
+                                                    <%=tongtien%> đ</h3>
                                                 <span>Doanh thu</span>
                                             </div>
                                         </div>
@@ -146,18 +147,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <% var id = 0 ;%>
-                                        <% cart.forEach(function(item){ var data = item.cart; id++ %>
+                                            <% var id = 0 ;%>
+                                            <% cart.forEach(function(item){ var temp = item.cart; id++ %>
                                             <tr>
-                                                <td><%=id%></td>
-                                                <td><%=item.name%></td>
-                                                <td><%=item.email%></td>
-                                                <td><%=item.sdt%></td>
+                                                <td>
+                                                    <%=id%>
+                                                </td>
+                                                <td>
+                                                    <%=item.name%>
+                                                </td>
+                                                <td>
+                                                    <%=item.email%>
+                                                </td>
+                                                <td>
+                                                    <%=item.sdt%>
+                                                </td>
                                                 <% var total = 0;%>
-                                                <% data.forEach(function(tien) { total += tien.tien; }) %>
-                                                <td><%=total%> VNĐ</td>
+                                                <% temp.forEach(function(tien) { total += tien.tien; }) %>
+                                                <td>
+                                                    <%=total%> VNĐ</td>
                                             </tr>
-                                        <% }) %>
+                                            <% }) %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -184,15 +194,18 @@
         chartSL = new Chart(document.getElementById("pie-chart"), {
             type: 'pie',
             data: {
-                <%cate.forEach((item)=>{%>
-                    labels: ['<%=item.name%>'],
-                <%})%>
+
+                labels: [
+                    <%cate.forEach((ca)=>{%>
+                    '<%=ca.name%>',
+                    <%})%>
+                ],
                 datasets: [{
                     label: "Population (millions)",
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",
                         "#e8c3b9", "#c45850"
                     ],
-                    data: [2478, 5267, 734, 784, 433]
+                    data: [5, 2, 3]
                 }]
             },
             options: {
@@ -214,15 +227,17 @@
         chartDT = new Chart(document.getElementById("polar-chart"), {
             type: 'polarArea',
             data: {
-                <%cate.forEach((item)=>{%>
-                    labels: ['<%=item.name%>'],
-                <%})%>
+                labels: [
+                    <%cate.forEach((ca)=>{%>
+                    '<%=ca.name%>',
+                    <%})%>
+                ],
                 datasets: [{
                     label: "Population (millions)",
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",
                         "#e8c3b9", "#c45850"
                     ],
-                    data: [2478, 5267, 734, 784, 433]
+                    data: [276000, 122000, 216000, 100000, 570000]
                 }]
             },
             options: {
@@ -263,21 +278,21 @@
 
     <!-- Main JS-->
     <script src="admin/js/main.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
             $.post(
-                './admin/getUser', {
-
+                './admin/getStaff', {
                 },
                 function (data) {
                     $('img.avatar').attr('src', 'upload/' + data.img);
+                    console.log(data.img);
                     $('.name').html(data.username);
                     $('.email').html(data.email);
                 }
             )
         });
     </script>
+
 </body>
 
 </html>

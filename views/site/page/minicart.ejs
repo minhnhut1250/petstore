@@ -92,7 +92,7 @@
                                 <h5>Số lượng :</h5>
                             </li>
                             <li>
-                                    <input id="sl<%= item.item._id%>" style="width:50px; border: none" type="number" size="1"
+                                    <input id="sl<%= item.item._id%>" style="width:50px; border: none" type="number" size="1" min="1" max="<%=item.item.quantity%>"
                                         value="<%= item.soluong%>" name="quantity[]" class="span1">
                             </li>
                         </ul>

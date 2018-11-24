@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var _ = require('lodash');
 
 var Cart = require('../model/Cart.js');
 var Cate = require('../model/Cate.js');
 
-var User = require('../model/User.js');
+var Staff = require('../model/Staff.js');
 
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
@@ -17,34 +16,36 @@ router.get('/', function (req, res, next) {
 
 /* GET home page. */
 router.get('/trang-chu', checkAdmin, function (req, res, next) {
-  Cate.find().then(function (cate) {
-    Cart.find({
-      st: 2
-    }).then(function (data) {
-      var tongtien = 0;
-      for (var i = 0; i < data.length; i++) {
-        var cart = data[i].cart;
-        for ( var j = 0; j < cart.length; j++) {
-          var tien = cart[j].tien;
-          tongtien += tien;
-          var item = cart[j].item;
-          var id = item._id;
-          var loaisp = item.cateId;
-          var item = {};
-          item[id] = loaisp;
-          var a =_.countBy(item, (e) => e[Object.keys(e)[0]] === loaisp );
-          console.log(a.true);
-        }
-      }
+  Cart.find({
+    st: 2,
+  }).then(function (data) {
+    var arr = [];
+    var tongtien = 0;
+    data.forEach(function (temp1) {
+      var cart = temp1.cart;
+      cart.forEach(function (temp2) {
+        var tien = temp2.tien;
+        tongtien += tien;
+        var sl = temp2.soluong;
+        var id = temp2.item.cateId;
+        arr.push({
+          id,
+          sl,
+          tien
+        });
+      })
+    })
+    console.log(arr);
+    Cate.find({}).then(function (cate) {
       res.render('admin/main/index', {
         tongtien: tongtien,
+        arr: arr,
         cart: data,
         cate: cate,
       });
     })
-  })
+  });
 });
-
 router.post('/',
   passport.authenticate('local', {
     successRedirect: '/admin/trang-chu',
@@ -59,14 +60,14 @@ passport.use(new LocalStrategy({
   },
 
   function (username, password, done) {
-    User.findOne({
+    Staff.findOne({
       username: username
     }, function (err, username) {
       if (err) throw err;
       if (username) {
-        bcrypt.compare(password, username.password, function (err, user) {
+        bcrypt.compare(password, username.password, function (err, staff) {
           if (err) throw err;
-          if (user) {
+          if (staff) {
             return done(null, username);
           } else {
             return done(null, false, {
@@ -85,19 +86,18 @@ passport.use(new LocalStrategy({
 ));
 
 passport.serializeUser(function (username, done) {
-
   done(null, username.id);
 });
 
 passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, username) {
+  Staff.findById(id, function (err, username) {
     done(err, username);
   });
 });
 
 
 
-router.post('/getUser', checkAdmin, function (req, res) {
+router.post('/getStaff', checkAdmin, function (req, res) {
   res.json(req.user);
 });
 

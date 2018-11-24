@@ -10,7 +10,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
-var index = require('./routes/index');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
 var cate = require('./routes/cate');
@@ -84,8 +83,7 @@ app.use(function(req, res, next){
 	next();
 });
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/', users);
 app.use('/admin', admin);
 app.use('/admin/loai-san-pham', cate);
 app.use('/admin/san-pham', product);
