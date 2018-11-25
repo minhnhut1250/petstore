@@ -68,8 +68,8 @@ router.post('/qly-san-pham', checkAdmin, upload.single('hinh'), function (req, r
 			st: 0
 		});
 		pro.save().then(function () {
-			req.flash('success_msg', 'Đã Thêm Thành Công Sản Phẩm ');
-			res.redirect('/admin/san-pham/qly-san-pham');
+			req.flash('success_msg', 'Đã thêm thành công sản phẩm ');
+			res.redirect('back');
 		});
 	}
 });
@@ -131,8 +131,8 @@ router.post('/qly-san-pham/sua', checkAdmin, upload.single('hinh'), function (re
 				data.st = '0';
 
 			data.save();
-			req.flash('success_msg', 'Đã Sửa Thành Công Sản Phẩm ');
-			res.redirect('/admin/san-pham/qly-san-pham');
+			req.flash('success_msg', 'Đã sửa thành công sản phẩm');
+			res.redirect('back');
 
 		});
 
@@ -156,8 +156,8 @@ router.get('/:id/xoa', checkAdmin, function (req, res) {
 			if (e) throw e;
 		});
 		data.remove(function () {
-			req.flash('success_msg', 'Đã Xoá Thành Công Sản Phẩm');
-			res.redirect('/admin/san-pham/qly-san-pham');
+			req.flash('success_msg', 'Đã xóa thành công sản phẩm');
+			res.redirect('back');
 		})
 	});
 

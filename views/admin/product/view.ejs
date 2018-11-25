@@ -102,7 +102,7 @@
                                                             class="item">
                                                             <i class="zmdi zmdi-edit"></i>
                                                         </button>
-                                                        <a onclick="return confirm('Bạn có chắc muốn xóa loại sản phẩm này không ?');"
+                                                        <a onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không ?');"
                                                             href="/admin/san-pham/<%= item._id %>/xoa" class="item">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </a>
@@ -365,6 +365,21 @@
     </script>
     <!-- Main JS-->
     <script src="admin/js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post(
+                './admin/getStaff', {
+                },
+                function (data) {
+                    $('img.avatar').attr('src', 'upload/' + data.img);
+                    console.log(data.img);
+                    $('.name').html(data.username);
+                    $('.email').html(data.email);
+                }
+            )
+        });
+    </script>
+
 </body>
 
 </html>

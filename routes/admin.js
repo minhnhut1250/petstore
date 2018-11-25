@@ -33,10 +33,10 @@ router.get('/trang-chu', checkAdmin, function (req, res, next) {
           sl,
           tien
         });
-      })
-    })
+      });
+    });
     console.log(arr);
-    Cate.find({}).then(function (cate) {
+    Cate.find().then(function (cate) {
       res.render('admin/main/index', {
         tongtien: tongtien,
         arr: arr,
@@ -54,11 +54,21 @@ router.post('/',
   })
 );
 
+passport.serializeUser(function (username, done) {
+  done(null, username.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  Staff.findById(id, function (err, username) {
+    done(err, username);
+  });
+});
+
+
 passport.use(new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password'
   },
-
   function (username, password, done) {
     Staff.findOne({
       username: username
@@ -84,17 +94,6 @@ passport.use(new LocalStrategy({
   }
 
 ));
-
-passport.serializeUser(function (username, done) {
-  done(null, username.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  Staff.findById(id, function (err, username) {
-    done(err, username);
-  });
-});
-
 
 
 router.post('/getStaff', checkAdmin, function (req, res) {

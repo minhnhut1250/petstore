@@ -99,7 +99,7 @@
                                                             class="item">
                                                             <i class="fa fa-eye"></i>
                                                         </button>
-                                                        <a onclick="return confirm('Bạn có chắc muốn xóa loại sản phẩm này không ?');"
+                                                        <a onclick="return confirm('Bạn có chắc muốn xóa đơn hàng này không ?');"
                                                             href="/admin/don-hang/<%= item._id %>/xoa" class="item">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </a>
@@ -223,7 +223,7 @@
                                                         <%= item.soluong%>
                                                     </td>
                                                     <td>
-                                                        <%= item.tien%> VNĐ</td>
+                                                        <%=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(item.tien)%></td>
                                                 </tr>
                                                 <%})%>
                                             </tbody>
@@ -231,7 +231,7 @@
                                         <hr>
                                     </form>
                                     <p style="color:red; float: right;">Tồng Tiền : <span>
-                                            <%= total %> VNĐ</span></p>
+                                                        <%=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total)%></p>
                                     </strong>
                                 </div>
                             </div>
@@ -269,6 +269,21 @@
 
     <!-- Main JS-->
     <script src="admin/js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post(
+                './admin/getStaff', {
+                },
+                function (data) {
+                    $('img.avatar').attr('src', 'upload/' + data.img);
+                    console.log(data.img);
+                    $('.name').html(data.username);
+                    $('.email').html(data.email);
+                }
+            )
+        });
+    </script>
+
 
 </body>
 

@@ -7,14 +7,15 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
-var users = require('./routes/users');
+
 var admin = require('./routes/admin');
 var cate = require('./routes/cate');
 var product = require('./routes/product');
 var cart = require('./routes/cart');
+var users = require('./routes/users');
+
 
 var salt = bcrypt.genSaltSync(10);
 var hash = bcrypt.hashSync("B4c0/\/", salt);
@@ -63,14 +64,13 @@ app.use(expressValidator({
   }
 }));
 
-
 app.use(session({
   secret: 'nhut',
   resave: true,
   key: 'user',
   saveUninitialized: true
-
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());

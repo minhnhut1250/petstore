@@ -230,6 +230,21 @@
 
     <!-- Main JS-->
     <script src="admin/js/main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post(
+                './admin/getStaff', {
+                },
+                function (data) {
+                    $('img.avatar').attr('src', 'upload/' + data.img);
+                    console.log(data.img);
+                    $('.name').html(data.username);
+                    $('.email').html(data.email);
+                }
+            )
+        });
+    </script>
+
 
 </body>
 

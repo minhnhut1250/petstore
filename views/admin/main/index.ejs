@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="text">
                                                 <h3 style="color:#fff">
-                                                    <%=tongtien%> đ</h3>
+                                                    <%=new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(tongtien)%></h3>
                                                 <span>Doanh thu</span>
                                             </div>
                                         </div>
@@ -205,7 +205,7 @@
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",
                         "#e8c3b9", "#c45850"
                     ],
-                    data: [5, 2, 3]
+                    data: [1, 5, 5 ,0 ,0]
                 }]
             },
             options: {
@@ -237,7 +237,7 @@
                     backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f",
                         "#e8c3b9", "#c45850"
                     ],
-                    data: [276000, 122000, 216000, 100000, 570000]
+                    data: [76000, 575000, 752000, 0, 0]
                 }]
             },
             options: {

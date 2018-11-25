@@ -125,8 +125,19 @@ $(window).load(function() {
                         <p>5.00 out of 5</p>
                         <a href="#">Add Your Review</a>
                     </div>
-                    <h6 class="item_price" style="color:#d8703f;">
+                    <%if( data.promotion <= 0 ) { %>
+                                <h6 class="item_price" style="color:#d8703f;">
                         <%=data.price%> VNĐ</h6>
+                                <% } else { %>
+                                <h6 class="item_price" style="color:#d8703f;">
+                                    <p>
+                                    Giá: 
+                                    <del><%=data.price%> VNĐ</del>
+                                    <span class="item_price" id="price<%=data.price%>" style="color: #FF590F;"><%=(data.price)-((data.price) * ((data.promotion) /100))%> VNĐ</span>
+                                </p>
+                                </h6>
+                                <% } %>
+                    
                     <p>
                         <%=data.des%>
                     </p>

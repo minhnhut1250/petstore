@@ -93,10 +93,10 @@
 </div>
 <!--//banner-->
 <% if(success_msg != ''){ %>
-          <div class="alert alert-success">
-            <%= success_msg%>
-          </div>
-        <% } %>
+  <script>
+    alert('<%=success_msg%>');
+  </script>
+<% } %>
 <%  cate.forEach(function(ca){ var id = 0; %>
 <div class="new">
   <div class="container">
@@ -186,5 +186,6 @@
   ================================================== -->
   <!--Placed at the end of the document so the pages load faster -->
   <script src="customer/js/bootstrap.js"></script>
+
 </body>
 <html>

@@ -7,9 +7,9 @@ var GioHang = require('../model/giohang.js');
 var Cart = require('../model/Cart.js');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 	res.send('respond with a resource');
-  });
+});
 
 var countJson = function (json) {
 	var count = 0;
@@ -37,7 +37,6 @@ router.get('/lien-he', function (req, res) {
 });
 
 router.get('/cate/:name.:id', function (req, res) {
-
 	Product.find({
 		cateId: req.params.id
 	}, function (err, data) {
@@ -113,20 +112,11 @@ router.post('/dat-hang', function (req, res) {
 			req.session.cart = {
 				items: {}
 			};
-			req.flash('success_msg', 'Đã Đặt Hàng Thành Công ');
+			req.flash('success_msg', 'Đã đặt hàng thành công !');
 			res.redirect('/trang-chu');
 		});
 	}
 });
-
-// router.get('/don-hang/:id', function (req, res) {
-
-// 	var id = req.params.id;
-// 	Cart.findById(id).then(function(data){
-// 		res.render('site/page/bill', {cart: data});
-//    });
-
-// });
 
 router.post('/menu', function (req, res) {
 	Cate.find().then(function (data) {

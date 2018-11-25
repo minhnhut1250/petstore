@@ -39,8 +39,8 @@ router.post('/qly-loai-san-pham', checkAdmin, function (req, res, next) {
 			name: req.body.name,
 		});
 		cate.save().then(function () {
-			req.flash('success_msg', 'Đã Thêm Thành Công Loại Sản Phẩm ');
-			res.redirect('/admin/loai-san-pham/qly-loai-san-pham');
+			req.flash('success_msg', 'Đã thêm thành công loại sản phẩm ');
+			res.redirect('back');
 		});
 	}
 });
@@ -75,8 +75,8 @@ router.post('/qly-loai-san-pham/sua', checkAdmin, function (req, res, next) {
 		Cate.findById(id, function (err, data) {
 			data.name = req.body.name;
 			data.save();
-			req.flash('success_msg', 'Đã Sửa Thành Công Loại Sản Phẩm ');
-			res.redirect('/admin/loai-san-pham/qly-loai-san-pham');
+			req.flash('success_msg', 'Đã sửa thành công loại sản phẩm !');
+			res.redirect('back');
 		});
 	}
 
@@ -91,12 +91,12 @@ router.get('/qly-loai-san-pham/:id/xoa', checkAdmin, function (req, res, next) {
 	Cate.findById(id, function (err, data) {
 		Product.findOne({cateId: data._id }, function (err, pro) {
 			if (pro != null) {
-				req.flash('error_msg', 'Danh mục có sản phẩm nên không thể xóa');
-				res.redirect('/admin/loai-san-pham/qly-loai-san-pham');
+				req.flash('error_msg', 'Loại sản phẩm này đã có sản phẩm nên không thể xóa !');
+				res.redirect('back');
 			} else {
 				data.remove(function () {
-					req.flash('success_msg', 'Đã Xoá Thành Công Sản Phẩm');
-					res.redirect('/admin/loai-san-pham/qly-loai-san-pham');
+					req.flash('success_msg', 'Đã xoá thành công Loại sản phẩm !');
+					res.redirect('back');
 				})
 			}
 		})
